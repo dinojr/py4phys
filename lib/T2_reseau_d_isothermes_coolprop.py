@@ -43,20 +43,40 @@ def isothermes_d_andrews(fluide,dico={}):
        'titre': "Isotherme d'Andrews pour le fluide {}".format(fluide),
        'fichier': 'PNG/T2_reseau_d_isothermes_coolprop_{}.png'.format(fluide),
        'logx': True, 'logy': True, 'legend': True,
+       'export-points': False,
+       'fichier-Pv': 'PNG/T2_reseau_d_isothermes_coolprop_Pv{}.png'.format(fluide),
+       'fichier-sat': 'PNG/T2_reseau_d_isothermes_coolprop_sat{}.png'.format(fluide),
        'saturation': False}
     DEFAUTS.update(dico)      # Mise à jour des valeurs par défaut via 'dico' 
     # L'échantillonnage sera différent
     if DEFAUTS['logx']:       # si l'axe est logarithmique
-       v=np.logspace(np.log10(DEFAUTS['vmin']),np.log10(DEFAUTS['vmax']),1000)
+       v=np.logspace(np.log10(DEFAUTS['vmin']),np.log10(DEFAUTS['vmax']),200)
     else:                     # ou simplement linéaire
-       v=np.linspace(DEFAUTS['vmin'],DEFAUTS['vmax'],1000)
+       v=np.linspace(DEFAUTS['vmin'],DEFAUTS['vmax'],200)
+    if DEFAUTS['export-points']:
+        f=open(DEFAUTS['fichier-Pv'],'ab') # Pour vider le fichier
+        os.ftruncate(f.fileno(),0)
+        os.lseek(f.fileno(),0, os.SEEK_SET)
     for Ti in DEFAUTS['T']:   # Tracé des différentes isothermes
         P = CP.PropsSI('P','T',Ti,'D',1/v,fluide)
+        if DEFAUTS['export-points']:
+            # np.savetxt(f,[[v[i],P[i]] for i in range(len(v))],delimiter='\t',header='v(m^3/kg),P(Pa)')
+            np.savetxt(f,list(zip(v,P/1e5)),delimiter='\t',header='v(m^3/kg),P(bar)')
+            np.savetxt(f,[np.nan],delimiter='\t')
         plt.plot(v,P,label='$T={}$'.format(Ti))
+    if DEFAUTS['export-points']:
+        f.close()
     if DEFAUTS['saturation']: # Tracé de la courbe de saturation
         P_sat= np.linspace(Ptriple,Pcritique,1000)
         v_eb   = 1/CP.PropsSI('D','P',P_sat,'Q',0,fluide)
         v_rosee= 1/CP.PropsSI('D','P',P_sat,'Q',1,fluide)
+        if DEFAUTS['export-points']:
+            f=open(DEFAUTS['fichier-sat'],'ab')
+            os.ftruncate(f.fileno(), 0)
+            os.lseek(f.fileno(),0, os.SEEK_SET)
+            # np.savetxt(f,[[P_sat[i],v_eb[i],v_rosee[i]] for i in range(len(P_sat))],header='P(Pa),v_eb(m^3/kg),v_rosee(m^3/kg)')
+            np.savetxt(f,list(zip(P_sat/1e5,v_eb,v_rosee)),delimiter='\t',header='P(bar),Veb,Vrosee(m^3/kg)')
+            f.close()
         plt.plot(v_eb,P_sat,'k',linewidth=2.0)
         plt.plot(v_rosee,P_sat,'k',linewidth=2.0)
     if DEFAUTS['Prange']: plt.ylim(DEFAUTS['Prange']) # Intervalle vertical
