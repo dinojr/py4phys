@@ -1,14 +1,14 @@
-# coding: utf8
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
 # Sauf mention explicite du contraire par la suite, ce travail a été fait par 
 # Jean-Julien Fleck, professeur de physique/IPT en PCSI1 au lycée Kléber. 
 # Vous êtes libres de le réutiliser et de le modifier selon vos besoins.
 
-
-
 import numpy as np               # Les outils mathématiques
 import CoolProp.CoolProp as CP   # Les outils thermodynamiques
 import matplotlib.pyplot as plt  # Les outils graphiques
+import os
 
 def isothermes_d_andrews(fluide,dico={}):
     """ Dessines les isothermes d'Andrews pour le fluide demandé avec des 
