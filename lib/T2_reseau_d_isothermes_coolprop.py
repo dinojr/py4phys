@@ -71,7 +71,7 @@ def isothermes_d_andrews(fluide,dico={}):
     plt.clf()                                         # Nettoyage
 
 # Le fluide à étudier (à choisir parmi ceux donnés par CP.FluidsList())
-fluide = 'Water'
+fluide = 'carbondioxide'
 
 # Le diagramme "par défaut"
 isothermes_d_andrews(fluide)
@@ -79,12 +79,12 @@ isothermes_d_andrews(fluide)
 # Les valeurs suivantes ont été choisies suite à l'observation du diagramme 
 # par défaut. Il faudra certainement changer les valeurs si vous modifiez le 
 # fluide
-dico = {'Prange':(1e7,3e7),
+dico = {'Prange':(1e6,1e7),
         'fichier':'PNG/T2_reseau_d_isothermes_coolprop_{}_lin.png'.format(fluide),
         'logx':False, 'logy': False,
-        'vmin': 1e-3, 'vmax':1e-2,
-        'T': [600 + i*2 for i in range(40)], 
-        'legend': False}
+        'vmin': 1e-3, 'vmax':3e-2,
+        'T': [200 + i*5 for i in range(30)], 
+        'legend': False,
 isothermes_d_andrews(fluide,dico)
 
 # Le même en rajoutant la courbe de saturation
