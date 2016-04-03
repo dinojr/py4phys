@@ -50,7 +50,7 @@ def isothermes_d_andrews(fluide,dico={}):
     DEFAUTS.update(dico)      # Mise à jour des valeurs par défaut via 'dico' 
     # L'échantillonnage sera différent
     if DEFAUTS['logx']:       # si l'axe est logarithmique
-       v=np.logspace(np.log10(DEFAUTS['vmin']),np.log10(DEFAUTS['vmax']),200)
+       v=np.logspace(np.log10(DEFAUTS['vmin']),np.log10(DEFAUTS['vmax']),600)
     else:                     # ou simplement linéaire
        v=np.linspace(DEFAUTS['vmin'],DEFAUTS['vmax'],200)
     if DEFAUTS['export-points']:
@@ -67,7 +67,7 @@ def isothermes_d_andrews(fluide,dico={}):
     if DEFAUTS['export-points']:
         f.close()
     if DEFAUTS['saturation']: # Tracé de la courbe de saturation
-        P_sat= np.linspace(Ptriple,Pcritique,1000)
+        P_sat= np.linspace(Ptriple,Pcritique,600)
         v_eb   = 1/CP.PropsSI('D','P',P_sat,'Q',0,fluide)
         v_rosee= 1/CP.PropsSI('D','P',P_sat,'Q',1,fluide)
         if DEFAUTS['export-points']:
@@ -102,9 +102,14 @@ isothermes_d_andrews(fluide)
 dico = {'Prange':(1e6,1e7),
         'fichier':'PNG/T2_reseau_d_isothermes_coolprop_{}_lin.png'.format(fluide),
         'logx':False, 'logy': False,
-        'vmin': 1e-3, 'vmax':3e-2,
-        'T': [200 + i*5 for i in range(30)], 
+        'vmin': 1e-3, 'vmax':1e-2,
+        # 'T': [200 + i*5 for i in range(30)],
+        'T': [270,290,304.2,310,320], 
         'legend': False,
+        'export-points': True,
+        'fichier-Pv': '/home/wilk/enseignement/schemas/thermodynamique/coolprop/isothermes-andrews-Pv-{}.csv'.format(fluide),
+       'fichier-sat': '/home/wilk/enseignement/schemas/thermodynamique/coolprop/isothermes-andrews-sat-{}.csv'.format(fluide),
+        }
 isothermes_d_andrews(fluide,dico)
 
 # Le même en rajoutant la courbe de saturation
