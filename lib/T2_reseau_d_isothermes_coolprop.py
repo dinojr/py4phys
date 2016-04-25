@@ -91,6 +91,7 @@ def isothermes_d_andrews(fluide,dico={}):
     plt.xlabel('Volume massique $v$ en m$^3/$kg')     # Légende en abscisse
     plt.ylabel('Pression en Pa')                      # Légende en ordonnée
     plt.title(DEFAUTS['titre'])                       # Titre
+    plt.show()
     plt.savefig(DEFAUTS['fichier'])                   # Enregistrement
     plt.clf()                                         # Nettoyage
 
