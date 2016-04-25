@@ -9,7 +9,7 @@ import numpy as np               # Les outils mathématiques
 import CoolProp.CoolProp as CP   # Les outils thermodynamiques
 import matplotlib.pyplot as plt  # Les outils graphiques
 import os
-
+os.chdir("/home/wilk/git-repositories/py4phys/lib/")
 def isothermes_d_andrews(fluide,dico={}):
     """ Dessines les isothermes d'Andrews pour le fluide demandé avec des 
     choix par défaut qui peuvent être "overridden" en spécifiant ceux à 
