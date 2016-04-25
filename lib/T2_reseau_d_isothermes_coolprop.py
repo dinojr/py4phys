@@ -27,17 +27,19 @@ def isothermes_d_andrews(fluide,dico={}):
     * 'saturation': Booléen indiquant si on veut rajouter la courbe de 
     saturation au tracé (défaut à False)
     """
-    Pcritique = .9999*CP.PropsSI(fluide,'pcrit')  # Pression
-    Tcritique = .9999*CP.PropsSI(fluide,'Tcrit')  # et température critique
+    # Pcritique = .9999*CP.PropsSI(fluide,'pcrit')  # Pression
+    # Tcritique = .9999*CP.PropsSI(fluide,'Tcrit')  # et température critique
     # Ptriple = 1.001*CP.PropsSI(fluide,'ptriple')  # Pression 
     # Ttriple = 1.001*CP.PropsSI(fluide,'Ttriple')  # et température au point triple
+    Pcritique = CP.PropsSI(fluide,'pcrit')  # Pression
+    Tcritique = CP.PropsSI(fluide,'Tcrit')  # et température critique
     Ptriple = CP.PropsSI(fluide,'ptriple')  # Pression 
     Ttriple = CP.PropsSI(fluide,'Ttriple')  # et température au point triple
     # On récupère les volumes massiques via les 'densités' (ie masses 
     # volumiques) données par CoolProp
     vtripleL = 1/CP.PropsSI('D','P',Ptriple,'Q',0,fluide)
     vtripleG = 1/CP.PropsSI('D','P',Ptriple,'Q',1,fluide)
-    vcritique= 1/CP.PropsSI('D','P',Pcritique,'T',Tcritique,fluide)
+    vcritique= 0.5*(1/CP.PropsSI('D','P',Pcritique,'Q',0,fluide)+1/CP.PropsSI('D','P',Pcritique,'Q',1,fluide))
     # L'ensemble des valeurs par défaut.
     DEFAUTS = {'vmin':vtripleL, 'vmax':vtripleG*10, 
        'Prange': None, 
