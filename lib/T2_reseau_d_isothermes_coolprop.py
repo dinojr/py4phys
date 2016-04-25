@@ -29,8 +29,10 @@ def isothermes_d_andrews(fluide,dico={}):
     """
     Pcritique = .9999*CP.PropsSI(fluide,'pcrit')  # Pression
     Tcritique = .9999*CP.PropsSI(fluide,'Tcrit')  # et température critique
-    Ptriple = 1.001*CP.PropsSI(fluide,'ptriple')  # Pression 
-    Ttriple = 1.001*CP.PropsSI(fluide,'Ttriple')  # et température au point triple
+    # Ptriple = 1.001*CP.PropsSI(fluide,'ptriple')  # Pression 
+    # Ttriple = 1.001*CP.PropsSI(fluide,'Ttriple')  # et température au point triple
+    Ptriple = CP.PropsSI(fluide,'ptriple')  # Pression 
+    Ttriple = CP.PropsSI(fluide,'Ttriple')  # et température au point triple
     # On récupère les volumes massiques via les 'densités' (ie masses 
     # volumiques) données par CoolProp
     vtripleL = 1/CP.PropsSI('D','P',Ptriple,'Q',0,fluide)
