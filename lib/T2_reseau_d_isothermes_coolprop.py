@@ -96,7 +96,7 @@ def isothermes_d_andrews(fluide,dico={}):
     plt.clf()                                         # Nettoyage
 
 # Le fluide à étudier (à choisir parmi ceux donnés par CP.FluidsList())
-fluide = 'carbondioxide'
+fluide = 'n-Butane'
 
 # Le diagramme "par défaut"
 isothermes_d_andrews(fluide)
@@ -104,13 +104,13 @@ isothermes_d_andrews(fluide)
 # Les valeurs suivantes ont été choisies suite à l'observation du diagramme 
 # par défaut. Il faudra certainement changer les valeurs si vous modifiez le 
 # fluide
-dico = {'Prange':(1e6,1e7),
+dico = {'Prange':(1e5,5e6),
         'fichier':'PNG/T2_reseau_d_isothermes_coolprop_{}_lin.png'.format(fluide),
         'logx':False, 'logy': False,
-        'vmin': 1e-3, 'vmax':1e-2,
-        # 'T': [200 + i*5 for i in range(30)],
-        'T': [270,290,304.2,310,320], 
-        'legend': False,
+        # 'T': [270,290,304.2,310,320], 
+        'T': [300 + i*20 for i in range(10)],
+        'vmin': 1e-3, 'vmax':3e-2,
+        'legend': True,
         'export-points': True,
         'fichier-Pv': '/home/wilk/enseignement/schemas/thermodynamique/coolprop/isothermes-andrews-Pv-{}.csv'.format(fluide),
        'fichier-sat': '/home/wilk/enseignement/schemas/thermodynamique/coolprop/isothermes-andrews-sat-{}.csv'.format(fluide),
