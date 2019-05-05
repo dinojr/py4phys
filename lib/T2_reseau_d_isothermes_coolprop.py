@@ -105,12 +105,12 @@ isothermes_d_andrews(fluide)
 # par défaut. Il faudra certainement changer les valeurs si vous modifiez le 
 # fluide
 
-dico = {'Prange':(1e5,5e6),
+dico = {'Prange':(5e4,5e6),
         'fichier':'PNG/T2_reseau_d_isothermes_coolprop_{}_lin.png'.format(fluide),
-        'logx':False, 'logy': False,
-        # 'T': [270,290,304.2,310,320], 
-        'T': [300 + i*20 for i in range(10)],
-        'vmin': 1e-3, 'vmax':3e-2,
+        'logx':True, 'logy': False,
+        'T': [300,330,360,390,415,425.125,435,450],
+        # 'T': [300 + i*20 for i in range(10)],
+        'vmin': 1e-3, 'vmax':2e-1,
         'legend': True,
         'export-points': True,
         'fichier-Pv': '/home/wilk/enseignement/schemas/thermodynamique/coolprop/isothermes-andrews-Pv-{}.csv'.format(fluide),
@@ -122,6 +122,3 @@ isothermes_d_andrews(fluide,dico)
 dico['saturation'] = True
 dico['fichier'] = 'PNG/T2_reseau_d_isothermes_coolprop_{}_lin_sat.png'.format(fluide)
 isothermes_d_andrews(fluide,dico)
-
-
-
